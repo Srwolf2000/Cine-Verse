@@ -1,12 +1,70 @@
-# React + Vite
+# 🎬 CineVerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CineVerse is a movie and TV show browsing platform built with **React**, **Redux Toolkit**, **Tailwind CSS**, and the **TMDb API**.  
+It allows users to explore popular, upcoming, and trending media content through a clean and dynamic interface.
 
-Currently, two official plugins are available:
+> 🚧 **Work in Progress**: This project is still under development. New features, polish, and improvements are on the way.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features (Planned & In Progress)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Carousel section with full functionality (✅ done)
+- Responsive layout (🔄 in progress)
+- Browse popular, upcoming, and trending movies & TV shows
+- Movie detail pages with full metadata
+- API data consumption using Axios
+- Dark mode toggle
+- Language switcher (i18n)
+- User authentication (future feature)
+
+---
+
+## 🛠️ Technologies Used
+
+- React
+- Redux Toolkit
+- Tailwind CSS
+- Axios
+- TMDb API
+- Vite
+- JavaScript (ES6+)
+- Git & GitHub
+
+---
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Srwolf2000/cineverse.git
+
+# Navigate into the folder
+cd cineverse
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+---
+
+## 📸 Screenshots
+
+_Screenshots and demo GIFs coming soon._
+
+---
+
+## 👤 Author
+
+**Johan Stiven Restrepo Zapata**  
+Medellín, Colombia  
+📧 srestrepoz2000@gmail.com
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
