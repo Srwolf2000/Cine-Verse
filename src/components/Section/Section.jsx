@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import Card from "../Card/Card";
@@ -11,10 +10,8 @@ function Section({ name, items }) {
     const [activeLeft, setActiveLeft] = useState(false)
     const [activeRight, setActiveRight] = useState(false)
 
-
-
     const movies = items;
-    const status = useSelector(state => state.movies.status)
+    
     const itemsPerPage = 5;
 
     const handleNext = () => {
@@ -42,31 +39,39 @@ function Section({ name, items }) {
 
 
     return (
-        <section className="flex flex-col justify-center overflow-hidden w-full h-96  bg-red-800">
-            <div className="">
-            <p className="">{name}</p>
+        <section className="relative flex flex-col justify-center overflow-hidden w-full h-[30rem]">
+
+            <div className="flex w-full mx-20 mb-10 h-20 items-center">
+               
+                <p className="font-poppins font-bold text-white text-2xl mr-10 ">{name}</p>
+                <p className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">See more</p>
+                <ChevronRightIcon className="size-10 text-red-700 cursor-pointer "/>
+                
             </div>
-            {status === 'loading' && <p>Loading...</p>}
+
+           
             <button
                 onMouseEnter={() => setActiveLeft(true)}
                 onMouseLeave={() => setActiveLeft(false)}
-                className="absolute left-8 z-20 flex items-center justify-center w-14 h-52 bg-black/25 backdrop-blur-md rounded-2xl"
+                className="absolute top-44 left-8 z-20 flex items-center justify-center w-14 h-52 bg-black/25 rounded-2xl"
                 onClick={handleBack}>
                 <ChevronLeftIcon className={`${activeLeft ? 'hover:size-20' : 'size-10'} text-white `} />
             </button>
-            <div className="flex flex-row justify-center gap-5 w-full   bg-white  ">
+            <div className="flex flex-row gap-20 justify-center items-center w-full    ">
 
-                {visibleMovies.map((movie) => (
-                    <Card 
-                    key={movie?.id} 
-                    movie={movie} />
+              
+                    {visibleMovies.map((movie) => (
+                        <Card
+                            key={movie?.id}
+                            movie={movie} />
 
-                ))}
+                    ))}
+                
             </div>
             <button
                 onMouseEnter={() => setActiveRight(true)}
                 onMouseLeave={() => setActiveRight(false)}
-                className="absolute right-24 z-20 flex items-center justify-center w-14 h-52 bg-black/25 backdrop-blur-md rounded-2xl"
+                className="absolute top-44 right-8 z-20 flex items-center justify-center w-14 h-52 bg-black/25 rounded-2xl"
                 onClick={handleNext}>
                 <ChevronRightIcon className={`${activeRight ? 'hover:size-20' : 'size-10'} text-white `} />
             </button>

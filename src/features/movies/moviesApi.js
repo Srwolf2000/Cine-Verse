@@ -14,7 +14,6 @@ export const getUpcomingMovies = () => api.get('/movie/upcoming');
 
 export const getTopRatedMovies = () => api.get('/movie/top_rated');
 
-export const getMovieDetail = (id) => api.get(id)
 
 
 

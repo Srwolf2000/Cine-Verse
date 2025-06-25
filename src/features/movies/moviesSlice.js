@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import { getPopularMovies, getUpcomingMovies, getTopRatedMovies,getMovieDetail } from './moviesApi'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getPopularMovies, getUpcomingMovies, getTopRatedMovies } from './moviesApi'
 
 
-export const fetchPopular= createAsyncThunk('movies/fetchPopular',
+export const fetchPopular = createAsyncThunk('movies/fetchPopular',
     async () => {
         const response = await getPopularMovies();
         return response.data.results;
@@ -23,12 +23,6 @@ export const fetchTopTedMovies = createAsyncThunk('movies/fetchTopTedMovies',
     }
 );
 
-export const fetchMovieDetail = createAsyncThunk('movies/fetchMovieDetail',
-    async (id) => {
-        const response = await getMovieDetail(id);
-        return response.data.results;
-    }
-);
 
 const moviesSlice = createSlice({
     name: 'movies',
@@ -73,19 +67,21 @@ const moviesSlice = createSlice({
             .addCase(fetchUpcoming.rejected, (state, action) => {
                 state.status.upcoming = 'failed';
                 state.error.upcoming = action.error.message;
+                console.log(action.error.message)
             })
 
             //  TOP RATED
             .addCase(fetchTopTedMovies.pending, state => {
-                state.status.topRated = 'loading';
+                state.status.topTedMovies = 'loading';
             })
             .addCase(fetchTopTedMovies.fulfilled, (state, action) => {
-                state.status.topRated = 'succeeded';
-                state.TopTedMovies = action.payload;
+                state.status.topTedMovies = 'succeeded';
+                state.topTedMovies = action.payload;
             })
             .addCase(fetchTopTedMovies.rejected, (state, action) => {
-                state.status.topRated = 'failed';
-                state.error.topRated = action.error.message;
+                state.status.topTedMovies = 'failed';
+                state.error.topTedMovies = action.error.message;
+                console.log(action.error.message)
             });
     }
 });

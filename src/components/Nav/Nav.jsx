@@ -35,7 +35,7 @@ function Nav() {
 
   return (
 
-    <nav className=" fixed h-20 w-9/12 rounded-b-lg px-10 top-0 pt-6 bg-black/50 backdrop-blur-md z-50">
+    <nav className=" fixed left-1/2 transform -translate-x-1/2 h-20 w-[70%] rounded-b-lg px-10 top-0 pt-6 bg-black/50 backdrop-blur-md z-50">
       <div className=" flex flex-row justify-between w-full ">
         <ul className="flex flex-row items-center gap-7  text-white font-poppins font-medium ">
 
