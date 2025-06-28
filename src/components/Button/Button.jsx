@@ -1,6 +1,6 @@
 export function PrimaryButton ({text}) {
     return(
-        <button className="bg-red-700  p-2 font-poppins font-semibold text-white  rounded-lg shadow-md transition duration-300 hover:rounded-lg  hover:bg-red-500  hover:shadow-red-500/50 hover:shadow-lg">
+        <button className=" w-fit bg-red-700  p-2 font-poppins font-semibold text-white  rounded-lg shadow-md transition duration-300 hover:rounded-lg  hover:bg-red-500  hover:shadow-red-500/50 hover:shadow-lg">
             {text}
         </button>
     )
