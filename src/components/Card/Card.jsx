@@ -12,7 +12,7 @@ function Card({ movie }) {
         <article 
         onMouseEnter={handleMousePosition}
         onMouseLeave={handleMousePosition}
-        className="relative shadow-md shadow-black/60 rounded-2xl  z-10">
+        className="relative w-44 shadow-md shadow-black/60 rounded-2xl  z-10">
             <div className="w-44 h-64 rounded-2xl overflow-hidden aspect-video">
                 <img
                     className="w-100 object-contain"

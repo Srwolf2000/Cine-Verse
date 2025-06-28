@@ -8,7 +8,7 @@ function AppRouter() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="movies" element={<MoviesPage />} />
+                <Route path="/movies/:category" element={<MoviesPage />} />
             </Route>
         </Routes>
     )
