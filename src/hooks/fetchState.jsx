@@ -12,8 +12,8 @@ export function useLoading(keys = []) {
 
 
 export function useError(keys = []) {
-
-    return useSelector((state) =>
-        keys.some((key) => state.movies.status?.[key] === "failed")
-    );
+  return useSelector((state) => {
+    const status = state.movies.status || {};
+    return keys.some((key) => status[key] === "failed");
+  });
 }

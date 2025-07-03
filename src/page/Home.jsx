@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchPopular, fetchUpcoming, fetchTopTedMovies } from "../features/movies/moviesSlice";
 import { useLoading,useError } from "../hooks/fetchState";
+import IsLoading from "./IsLoading"
 import Slider from "../components/Slider/Slider";
 import Section from "../components/Section/Section";
 
@@ -29,18 +30,17 @@ function Home() {
 
   }, [dispatch]);
 
-  const isLoding = useLoading(['popular','upcoming','topTedMovies']);
+  const Loading = useLoading(['popular','upcoming','topTedMovies']);
   const isError = useError(['popular','upcoming','topTedMovies']);
+  console.log('cargando es :'+ Loading,'Error es:'+ isError)
   
   return (
 
     <div className="">
-      <Slider />
-      {isError || isLoding &&
-        <div className="w-full h-full bg-black text-white">
-          <p> Loading </p>
-        </div>}
 
+        
+      
+      <Slider />
 
       <Section
         name={'Popular'}

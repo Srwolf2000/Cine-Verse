@@ -54,6 +54,7 @@ const moviesSlice = createSlice({
             .addCase(fetchPopular.rejected, (state, action) => {
                 state.status.popular = 'failed';
                 state.error.popular = action.error.message;
+                
             })
 
             //  UPCOMING

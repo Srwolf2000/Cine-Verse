@@ -1,6 +1,7 @@
 
 import { Outlet } from "react-router";
 import Nav from "../components/Nav/Nav";
+import IsLoading from "../page/IsLoading";
 
 
 
@@ -14,6 +15,7 @@ export function Layout() {
                 <Nav />
             </header>
             <main className="w-full">
+                <IsLoading/>
                 <Outlet />
                 
             </main>

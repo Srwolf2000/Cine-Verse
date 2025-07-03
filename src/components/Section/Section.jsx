@@ -9,8 +9,8 @@ function Section({ name, items }) {
     const navigate = useNavigate()
 
     const [start, setStart] = useState(0);
-    const [activeLeft, setActiveLeft] = useState(false)
-    const [activeRight, setActiveRight] = useState(false)
+    const [activeLeft, setActiveLeft] = useState(false);
+    const [activeRight, setActiveRight] = useState(false);
 
     const movies = items;
 
