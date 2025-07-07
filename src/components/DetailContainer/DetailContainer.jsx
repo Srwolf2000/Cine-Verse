@@ -2,7 +2,7 @@ import { getImageUrl } from "../../utils/getImageUrl"
 import { FilmIcon,BookmarkIcon } from "@heroicons/react/16/solid"
 
 function DetailContainer({ movie }) {
-    console.log(movie)
+
     return (
         <div className="absolute flex flex-col left-1/2 -translate-x-1/2 -top-10 z-40 w-80 h-90 rounded-xl overflow-hidden bg-red-700">
             <div className="w-full h-3/6 mb-3 overflow-hidden">

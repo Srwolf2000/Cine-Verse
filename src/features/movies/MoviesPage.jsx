@@ -7,18 +7,18 @@ export default function MoviesPage() {
 
   const { category } = useParams();
   const title = category.replace(/[-]/g, " ");
-  const movies = useGetItems(title);
-  console.log(movies, title)
+  const inputs = useGetItems([title]);
+  console.log(inputs, title)
 
   return (
     <section className="w-full flex flex-col items-center my-36">
       <h2 className=" text-white  font-poppins font-bold text-3xl">{title}</h2>
       <div className="w-full flex justify-center items-center">
         <div className=" grid grid-cols-5 m-auto gap-20 py-16">
-          {movies.map((movie) =>
+          {inputs[0].items.map((item) =>
             <Card
-              key={movie.id}
-              movie={movie} />
+              key={item.id}
+              movie={item} />
           )}
         </div>
       </div>

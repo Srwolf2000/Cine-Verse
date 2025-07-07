@@ -15,7 +15,7 @@ export function Layout() {
                 <Nav />
             </header>
             <main className="w-full">
-                <IsLoading/>
+                {/* <IsLoading/> */}
                 <Outlet />
                 
             </main>

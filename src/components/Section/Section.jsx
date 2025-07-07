@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useError } from "../../hooks/fetchState";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
+import { HandleError } from "../HandleError/HandleError";
 import Card from "../Card/Card";
 
 
@@ -11,7 +13,7 @@ function Section({ name, items }) {
     const [start, setStart] = useState(0);
     const [activeLeft, setActiveLeft] = useState(false);
     const [activeRight, setActiveRight] = useState(false);
-
+    const isError = useError(['popular','upcoming','topTedMovies']);
     const movies = items;
 
     const itemsPerPage = 5;
@@ -44,7 +46,19 @@ function Section({ name, items }) {
         }
     })();
 
+    const showCard = (isError) =>{
+        if (isError){
+            return (<HandleError/>) 
+        }
+        return(visibleMovies.map((movie) => (
+                    <Card
+                        key={movie?.id}
+                        movie={movie} />
 
+                )))
+            }
+
+// console.log('isError es:'+ isError)
 
     return (
         <section className="relative flex flex-col justify-center overflow-hidden w-full h-[30rem]">
@@ -69,13 +83,8 @@ function Section({ name, items }) {
             </button>
             <div className="flex flex-row gap-20 justify-center items-center w-full    ">
 
-
-                {visibleMovies.map((movie) => (
-                    <Card
-                        key={movie?.id}
-                        movie={movie} />
-
-                ))}
+                
+                {showCard(isError)}
 
             </div>
             <button
