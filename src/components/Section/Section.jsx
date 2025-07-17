@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router";
 import { useError } from "../../hooks/fetchState";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
@@ -9,7 +9,6 @@ import Card from "../Card/Card";
 
 function Section({ name, items }) {
     const navigate = useNavigate()
-
     const [start, setStart] = useState(0);
     const [activeLeft, setActiveLeft] = useState(false);
     const [activeRight, setActiveRight] = useState(false);
@@ -17,6 +16,8 @@ function Section({ name, items }) {
     const movies = items;
 
     const itemsPerPage = 5;
+
+
 
     const handleNext = () => {
         const nextStart = (start + itemsPerPage) % movies.length;
@@ -58,7 +59,6 @@ function Section({ name, items }) {
                 )))
             }
 
-// console.log('isError es:'+ isError)
 
     return (
         <section className="relative flex flex-col justify-center overflow-hidden w-full h-[30rem]">

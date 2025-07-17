@@ -1,14 +1,25 @@
-import { useFetchData } from "../hooks/fetchData";
+import { fetchPopular, fetchUpcoming, fetchTopTedMovies } from "../features/movies/moviesSlice";
 import { useGetItems } from "../hooks/getItems"
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Slider from "../components/Slider/Slider";
 import Section from "../components/Section/Section";
-import { useMemo } from "react";
+
 
 function Home() {
-const keys = useMemo(() => ['popular', 'upcoming', 'toptedmovies'], []);
-  useFetchData(keys);
-  const inputs = useGetItems(keys);
-  console.log(inputs)
+
+  const dispatch = useDispatch();
+
+  
+  useEffect(() => {
+    dispatch(fetchPopular(1));
+    dispatch(fetchUpcoming(1));
+    dispatch(fetchTopTedMovies(1));
+  }, [dispatch])
+
+  const inputs = useGetItems( ['popular', 'upcoming', 'toptedmovies']);
+
+ 
 
   return (
 
@@ -16,7 +27,7 @@ const keys = useMemo(() => ['popular', 'upcoming', 'toptedmovies'], []);
 
 
 
-      <Slider />
+      <Slider movies={inputs[0].items} />
 
       <Section
         name={'Popular'}

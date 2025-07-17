@@ -8,12 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 import ScrollToTop from './page/ScrollToTop';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
       <ScrollToTop/>
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

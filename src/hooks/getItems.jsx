@@ -7,12 +7,13 @@ import { useSelector } from "react-redux"
  */
 
 
-export function useGetItems(keys = []) {
+export function useGetItems(keys = '') {
 
   const stateMovies = useSelector((state) => state.movies)
 
 
   const data = useMemo(() => {
+    console.log('soy yo el getItems')
    return keys.map((key) => {
       const word = key.toLowerCase()
       
@@ -20,28 +21,33 @@ export function useGetItems(keys = []) {
       if (word === 'popular') {
         return {
           name: word,
-          items: stateMovies.popular,
+          items: stateMovies.popular.items,
+          page: stateMovies.popular.page,
           loadingState: stateMovies.status.popular,
-          errorState: stateMovies.error.popular
+          errorState: stateMovies.error.popular,
+          
         }
       } else if (word === 'upcoming') {
         return {
           name: word,
-          items: stateMovies.upcoming,
+          items: stateMovies.upcoming.items,
+          page: stateMovies.upcoming.page,
           loadingState: stateMovies.status.upcoming,
           errorState: stateMovies.error.upcoming
         }
       } else if (word === 'toptedmovies') {
         return {
           name: word,
-          items: stateMovies.topTedMovies,
+          items: stateMovies.topTedMovies.items,
+          page: stateMovies.topTedMovies.page,
           loadingState: stateMovies.status.topTedMovies,
           errorState: stateMovies.error.topTedMovies
         }
       }
       return null
     }).filter(Boolean);
-  }, [keys, stateMovies]);
+    
+  }, [keys.join(','), stateMovies]);
 
   return data
   

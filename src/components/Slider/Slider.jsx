@@ -1,9 +1,8 @@
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react"
 import { getImageUrl } from "../../utils/getImageUrl"
 import { PrimaryButton, SecondButton } from "../Button/Button"
-function Slider() {
-    const movies = useSelector(state => state.movies.popular);
+function Slider({movies}) {
+   
     const items = movies.slice(0, 3)
 
     const [index, setIndex] = useState(0)
