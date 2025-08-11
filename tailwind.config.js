@@ -13,7 +13,7 @@ export default {
         poppins: ['Poppins', 'sans-serif'],
       },
       backgroundImage: {
-        'radial-black': 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 80%, rgba(0,0,0,1) 100%)',
+        'radial-black': 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%, rgba(0,0,0,1) 100%)',
         'bottom-fade': 'linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))',
       },
     },

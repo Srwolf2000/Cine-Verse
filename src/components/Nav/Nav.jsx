@@ -12,13 +12,13 @@ function Nav() {
   const lists = [
     {
       name: 'Movie',
-      to: "/",
+      to: "/movie",
     },
    
 
     {
       name: 'Show',
-      to: 'show'
+      to: '/show'
     },
    
   ]

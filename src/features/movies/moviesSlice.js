@@ -56,16 +56,19 @@ const moviesSlice = createSlice({
             state.popular = { items: [], page: 1 };
             state.status.popular = 'idle';
             state.error.popular = null;
+    
         },
         clearUpcoming(state) {
             state.upcoming ={ items: [], page: 1 };
             state.status.upcoming = 'idle';
             state.error.upcoming = null;
+            
         },
         clearTopTedMovies(state) {
             state.topTedMovies = { items: [], page: 1 };
             state.status.topTedMovies = 'idle';
             state.error.topTedMovies = null;
+        
         }
     },
     extraReducers: builder => {

@@ -1,5 +1,5 @@
-import {  useState } from "react";
-import { useNavigate } from "react-router";
+import { useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router";
 import { useError } from "../../hooks/fetchState";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { HandleError } from "../HandleError/HandleError";
@@ -7,61 +7,87 @@ import Card from "../Card/Card";
 
 
 
-function Section({ name, items }) {
+function Section({ name, items, error }) {
     const navigate = useNavigate()
-    const [start, setStart] = useState(0);
+    const { media } = useParams()
+
     const [activeLeft, setActiveLeft] = useState(false);
     const [activeRight, setActiveRight] = useState(false);
-    const isError = useError(['popular','upcoming','topTedMovies']);
-    const movies = items;
 
-    const itemsPerPage = 5;
+    const carouselRef = useRef(null);
 
-
-
-    const handleNext = () => {
-        const nextStart = (start + itemsPerPage) % movies.length;
-        setStart(nextStart);
-    };
+    const isError = useError(['popular', 'upcoming', 'topTedMovies']);
 
 
-    const handleBack = () => {
-        let newStart = start - itemsPerPage;
-        if (newStart < 0) {
-            newStart = movies.length + newStart;
+
+
+    const scrollLeft = () => {
+        const carousel = carouselRef.current;
+
+        if (!carousel) return;
+
+        if (carousel.scrollLeft === 0) {
+            carousel.scrollTo({
+                left: carousel.scrollWidth,
+                behavior: "smooth",
+            });
+        } else {
+            carouselRef.current.scrollBy({
+                left: -1020,
+                behavior: 'smooth'
+            });
         }
-        setStart(newStart);
+
+
+
     };
+
+    const scrollRight = () => {
+        const carousel = carouselRef.current;
+        if (!carousel) return;
+
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        if (Math.ceil(carousel.scrollLeft) >= maxScrollLeft) {
+            carousel.scrollTo({
+                left: 0,
+                behavior: "smooth",
+            });
+        } else {
+            carouselRef.current.scrollBy({
+                left: 1020,
+                behavior: 'smooth'
+            });
+        }
+
+    };
+
 
     const handleClick = (name) => {
         const category = name.replace(/\s+/g, '-');
-        navigate(`/movies/${category}`)
+        navigate(`/${media}/category/${category}`)
     }
 
-    const visibleMovies = (() => {
-        const end = start + itemsPerPage;
-        if (end <= movies.length) {
-            return movies.slice(start, end);
-        } else {
-            return [...movies.slice(start), ...movies.slice(0, end % movies.length)];
-        }
-    })();
 
-    const showCard = (isError) =>{
-        if (isError){
-            return (<HandleError/>) 
-        }
-        return(visibleMovies.map((movie) => (
-                    <Card
-                        key={movie?.id}
-                        movie={movie} />
 
-                )))
-            }
+    const showCard = () => {
+        if (error !== null) {
+            console.error(error)
+            return (<HandleError />)
+
+        }
+        return (items.map((movie) => (
+            <div key={movie?.id} className="pointer-events-auto ">
+                <Card
+                    key={movie?.id}
+                    movie={movie} />
+            </div>
+
+        )))
+    }
 
 
     return (
-        <section className="relative flex flex-col justify-center overflow-hidden w-full h-[30rem]">
+        <section className="relative flex flex-col justify-center overflow-x-hidden w-full h-[30rem]">
 
             <div className="flex w-full mx-20 mb-10 h-20 items-center">
 
@@ -77,21 +103,28 @@ function Section({ name, items }) {
             <button
                 onMouseEnter={() => setActiveLeft(true)}
                 onMouseLeave={() => setActiveLeft(false)}
-                className="absolute top-44 left-8 z-20 flex items-center justify-center w-14 h-52 bg-black/25 rounded-2xl"
-                onClick={handleBack}>
+                className="absolute top-44 left-8 z-40 flex items-center justify-center w-14 h-52 bg-black/50 rounded-2xl"
+                onClick={scrollLeft}>
                 <ChevronLeftIcon className={`${activeLeft ? 'hover:size-20' : 'size-10'} text-white `} />
             </button>
-            <div className="flex flex-row gap-20 justify-center items-center w-full    ">
+            <div className="relative w-full h-96 flex justify-center items-center overflow-visible">
+                <div className="relative w-[80%]  h-96 overflow-hidden pointer-events-auto">
+                    <div
+                        ref={carouselRef}
+                        className="flex flex-row items-center px-16  gap-20  h-96 overflow-x-scroll scroll-smooth no-scrollbar pointer-events-none">
 
-                
-                {showCard(isError)}
+
+                        {showCard(isError)}
+
+                    </div>
+                </div>
 
             </div>
             <button
                 onMouseEnter={() => setActiveRight(true)}
                 onMouseLeave={() => setActiveRight(false)}
-                className="absolute top-44 right-8 z-20 flex items-center justify-center w-14 h-52 bg-black/25 rounded-2xl"
-                onClick={handleNext}>
+                className="absolute top-44 right-8 z-40 flex items-center justify-center w-14 h-52 bg-black/50 rounded-2xl"
+                onClick={scrollRight}>
                 <ChevronRightIcon className={`${activeRight ? 'hover:size-20' : 'size-10'} text-white `} />
             </button>
         </section>

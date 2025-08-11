@@ -6,13 +6,14 @@ function Slider({movies}) {
     const items = movies.slice(0, 3)
 
     const [index, setIndex] = useState(0)
+  
 
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % items.length)
         }, 3000);
         return () => clearInterval(interval);
-    }, [items.length])
+    }, [items.length, movies])
 
 
 

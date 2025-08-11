@@ -1,7 +1,8 @@
 
 import { Outlet } from "react-router";
 import Nav from "../components/Nav/Nav";
-import IsLoading from "../page/IsLoading";
+import DetailItems from "../components/DetailItems/DetailItems";
+
 
 
 
@@ -14,9 +15,10 @@ export function Layout() {
             <header className="w-full flex justify-center">
                 <Nav />
             </header>
-            <main className="w-full">
-                {/* <IsLoading/> */}
+            <main className=" w-full ">
+         
                 <Outlet />
+               
                 
             </main>
             <footer className="bg-black">

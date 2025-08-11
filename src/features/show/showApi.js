@@ -8,19 +8,19 @@ export const api = axios.create({
     },
 });
 
-export const getPopularMovies = ( page )=> api.get('/movie/popular',{
+export const getPopularTv = ( page )=> api.get('/tv/popular',{
     params:{
         page:page 
     }
 }) ;
 
-export const getUpcomingMovies = (page) => api.get('/movie/upcoming',{
+export const getOnTheAirTv = (page) => api.get('/tv/on_the_air',{
   params:{
         page:page 
     }  
 });
 
-export const getTopRatedMovies = (page) => api.get('/movie/top_rated',{
+export const getTopTedRatedTv = (page) => api.get('/tv/top_rated',{
     params:{
         page:page 
     }

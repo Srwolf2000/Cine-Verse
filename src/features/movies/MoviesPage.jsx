@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useGetItems } from "../../hooks/getItems";
 import { fetchPopular, fetchUpcoming, fetchTopTedMovies } from "../movies/moviesSlice";
+import {  fetchPopularTv, fetchOnTheAirTv, fetchTopTedTv } from "../show/showSlice"
 import { clearData } from "../../utils/clearData";
 import { toCamelCase } from "../../utils/toCamelCase";
 import Card from "../../components/Card/Card";
@@ -16,7 +17,8 @@ export default function MoviesPage() {
   const [isIndex, setIsIndex] = useState(null);
   const word = toCamelCase(title);
 
-
+  console.log('category is:',category)
+console.log('word', word, 'title', title);
 
   useEffect(() => {
     clearData([title], dispatch);
@@ -38,13 +40,18 @@ export default function MoviesPage() {
     } else if (word === 'topTedMovies') {
       dispatch(fetchTopTedMovies(count));
       console.log('word', word, 'count', count);
+    }else if(word === 'populartv'){
+      dispatch(fetchPopularTv(count));
+    }else if(word === 'onTheAirTv'){
+      dispatch(fetchOnTheAirTv(count));
+    }else if (word === 'topTedTv'){
+       dispatch(fetchTopTedTv(count));
     }
     console.log('word', word);
   }, [word, count, dispatch]);
 
-  const inputs = useGetItems([word]);
+  const inputs = useGetItems([title]);
 
-  console.log("inputs", inputs);
 
 
 
@@ -94,7 +101,7 @@ export default function MoviesPage() {
 
     if (refIndex !== isIndex && refIndex !== null) {
       setIsIndex(refIndex);
-      console.log("refIndex:", refIndex);
+      
     }
   }, [inputs, isIndex]);
 

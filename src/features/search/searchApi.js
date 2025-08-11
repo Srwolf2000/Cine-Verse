@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 export const api = axios.create({
     baseURL:'https://api.themoviedb.org/3',
     headers:{
@@ -8,26 +10,9 @@ export const api = axios.create({
     },
 });
 
-export const getPopularMovies = ( page )=> api.get('/movie/popular',{
+
+export const getSearch = ( keyword )=> api.get('search/multi',{
     params:{
-        page:page 
+        query:keyword
     }
 }) ;
-
-export const getUpcomingMovies = (page) => api.get('/movie/upcoming',{
-  params:{
-        page:page 
-    }  
-});
-
-export const getTopRatedMovies = (page) => api.get('/movie/top_rated',{
-    params:{
-        page:page 
-    }
-});
-
-
-
-
-
-
