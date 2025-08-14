@@ -8,21 +8,24 @@ export const api = axios.create({
     },
 });
 
-export const getPopularTv = ( page )=> api.get('/tv/popular',{
+export const getPopularTv = ( page, language )=> api.get('/tv/popular',{
     params:{
-        page:page 
+        page:page,
+        languages:language 
     }
 }) ;
 
-export const getOnTheAirTv = (page) => api.get('/tv/on_the_air',{
+export const getOnTheAirTv = (page, language) => api.get('/tv/on_the_air',{
   params:{
-        page:page 
+        page:page,
+        languages:language 
     }  
 });
 
-export const getTopTedRatedTv = (page) => api.get('/tv/top_rated',{
+export const getTopRatedTv = (page, language) => api.get('/tv/top_rated',{
     params:{
-        page:page 
+        page:page,
+        languages:language
     }
 });
 

@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getPopularTv, getOnTheAirTv, getTopTedRatedTv } from './showApi'
+import { getPopularTv, getOnTheAirTv, getTopRatedTv } from './showApi'
 
 
 export const fetchPopularTv = createAsyncThunk('show/fetchPopularTv',
-    async (page) => {
-        const response = await getPopularTv(page);
-        console.log('Popular Tv', response)
+    async ({page,language}) => {
+        const response = await getPopularTv(page,language);
+        console.log('Popular Tv', response,'language',language) 
         return response.data.results;
 
 
@@ -13,16 +13,16 @@ export const fetchPopularTv = createAsyncThunk('show/fetchPopularTv',
 );
 
 export const fetchOnTheAirTv = createAsyncThunk('show/fetchOnTheAirTv',
-    async (page) => {
-        const response = await getOnTheAirTv(page);
+    async ({page,language}) => {
+        const response = await getOnTheAirTv(page,language);
         console.log('On The Air tv', response)
         return response.data.results;
     }
 );
 
-export const fetchTopTedTv = createAsyncThunk('show/fetchTopTedTv',
-    async (page) => {
-        const response = await getTopTedRatedTv(page);
+export const fetchTopRatedTv = createAsyncThunk('show/fetchTopRatedTv',
+    async ({page,language}) => {
+        const response = await getTopRatedTv(page,language);
         console.log('Top Ted Tv', response)
         return response.data.results;
     }
@@ -40,19 +40,19 @@ const showSlice = createSlice({
             items: [],
             page: 1,
         },
-        topTedTv: {
+        topRatedTv: {
             items: [],
             page: 1,
         },
         status: {
             popularTv: 'idle',
             onTheAirTv: 'idle',
-            topTedTv: 'idle',
+            topRatedTv: 'idle',
         },
         error: {
             popularTv: null,
             onTheAirTv: null,
-            topTedTv: null,
+            topRatedTv: null,
         }
     },
     reducers: {
@@ -68,10 +68,10 @@ const showSlice = createSlice({
             state.error.onTheAirTv = null;
 
         },
-        clearTopTedTv(state) {
-            state.topTedTv = { items: [], page: 1 };
-            state.status.topTedTv = 'idle';
-            state.error.topTedTv = null;
+        clearTopRatedTv(state) {
+            state.topRatedTv = { items: [], page: 1 };
+            state.status.topRatedTv = 'idle';
+            state.error.topRatedTv = null;
 
         }
     },
@@ -110,22 +110,22 @@ const showSlice = createSlice({
             })
 
             //  TOP RATED
-            .addCase(fetchTopTedTv.pending, state => {
-                state.status.topTedTv = 'loading';
+            .addCase(fetchTopRatedTv.pending, state => {
+                state.status.toRatedTv = 'loading';
             })
-            .addCase(fetchTopTedTv.fulfilled, (state, action) => {
-                state.status.topTedTv = 'succeeded';
-                state.topTedTv.items = [...state.topTedTv.items, ...action.payload];
-                state.topTedTv.page = action.meta.arg;
+            .addCase(fetchTopRatedTv.fulfilled, (state, action) => {
+                state.status.topRatedTv = 'succeeded';
+                state.topRatedTv.items = [...state.topRatedTv.items, ...action.payload];
+                state.topRatedTv.page = action.meta.arg;
                 console.log('action', action)
             })
-            .addCase(fetchTopTedTv.rejected, (state, action) => {
-                state.status.topTedTv = 'failed';
-                state.error.topTedTv = action.error.message;
+            .addCase(fetchTopRatedTv.rejected, (state, action) => {
+                state.status.topRatedTv = 'failed';
+                state.error.topRatedTv = action.error.message;
 
             });
     }
 });
 
-export const { clearPopularTv, clearOnTheAirTv, clearTopTedTv } = showSlice.actions;
+export const { clearPopularTv, clearOnTheAirTv, clearTopRatedTv } = showSlice.actions;
 export default showSlice.reducer;

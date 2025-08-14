@@ -3,23 +3,23 @@ import { getPopularMovies, getUpcomingMovies, getTopRatedMovies } from './movies
 
 
 export const fetchPopular = createAsyncThunk('movies/fetchPopular',
-    async (page) => {
-        const response = await getPopularMovies(page);
+    async ({page,language}) => {
+        const response = await getPopularMovies(page,language);
         return response.data.results;
 
     }
 );
 
 export const fetchUpcoming = createAsyncThunk('movies/fetchUpcoming',
-    async (page) => {
-        const response = await getUpcomingMovies(page);
+    async ({page,language}) => {
+        const response = await getUpcomingMovies(page,language);
         return response.data.results;
     }
 );
 
-export const fetchTopTedMovies = createAsyncThunk('movies/fetchTopTedMovies',
-    async (page) => {
-        const response = await getTopRatedMovies(page);
+export const fetchTopRatedMovies = createAsyncThunk('movies/fetchTopRatedMovies',
+    async ({page,language}) => {
+        const response = await getTopRatedMovies(page,language);
         return response.data.results;
     }
 );
@@ -36,19 +36,19 @@ const moviesSlice = createSlice({
             items: [],
             page: 1,
         },
-        topTedMovies: {
+        topRatedMovies: {
             items: [],
             page: 1,
         },
         status: {
             popular: 'idle',
             upcoming: 'idle',
-            topTedMovies: 'idle',
+            topRatedMovies: 'idle',
         },
         error: {
             popular: null,
             upcoming: null,
-            topTedMovies: null,
+            topRatedMovies: null,
         }
     },
     reducers: {
@@ -64,10 +64,10 @@ const moviesSlice = createSlice({
             state.error.upcoming = null;
             
         },
-        clearTopTedMovies(state) {
-            state.topTedMovies = { items: [], page: 1 };
-            state.status.topTedMovies = 'idle';
-            state.error.topTedMovies = null;
+        clearTopRatedMovies(state) {
+            state.topRatedMovies = { items: [], page: 1 };
+            state.status.topRatedMovies = 'idle';
+            state.error.topRatedMovies = null;
         
         }
     },
@@ -85,6 +85,7 @@ const moviesSlice = createSlice({
             .addCase(fetchPopular.rejected, (state, action) => {
                 state.status.popular = 'failed';
                 state.error.popular = action.error.message;
+                console.log(action.error.message)
 
             })
 
@@ -104,21 +105,21 @@ const moviesSlice = createSlice({
             })
 
             //  TOP RATED
-            .addCase(fetchTopTedMovies.pending, state => {
-                state.status.topTedMovies = 'loading';
+            .addCase(fetchTopRatedMovies.pending, state => {
+                state.status.topRatedMovies = 'loading';
             })
-            .addCase(fetchTopTedMovies.fulfilled, (state, action) => {
-                state.status.topTedMovies = 'succeeded';
-                state.topTedMovies.items = [...state.topTedMovies.items, ...action.payload];
-                state.topTedMovies.page = action.meta.arg;
+            .addCase(fetchTopRatedMovies.fulfilled, (state, action) => {
+                state.status.topRatedMovies = 'succeeded';
+                state.topRatedMovies.items = [...state.topRatedMovies.items, ...action.payload];
+                state.topRatedMovies.page = action.meta.arg;
             })
-            .addCase(fetchTopTedMovies.rejected, (state, action) => {
-                state.status.topTedMovies = 'failed';
-                state.error.topTedMovies = action.error.message;
+            .addCase(fetchTopRatedMovies.rejected, (state, action) => {
+                state.status.topRatedMovies = 'failed';
+                state.error.topRatedMovies = action.error.message;
                 console.log(action.error.message)
             });
     }
 });
 
-export const { clearPopular, clearUpcoming, clearTopTedMovies } = moviesSlice.actions;
+export const { clearPopular, clearUpcoming, clearTopRatedMovies } = moviesSlice.actions;
 export default moviesSlice.reducer;

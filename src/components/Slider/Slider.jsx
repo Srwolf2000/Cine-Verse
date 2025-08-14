@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next";
 import { getImageUrl } from "../../utils/getImageUrl"
 import { PrimaryButton, SecondButton } from "../Button/Button"
 function Slider({movies}) {
    
     const items = movies.slice(0, 3)
-
+   const { t } = useTranslation();
     const [index, setIndex] = useState(0)
   
 
@@ -47,8 +48,8 @@ function Slider({movies}) {
                 </div>
 
                 <div className="flex justify-between w-3/12 h-auto">
-                    <SecondButton text={'Watch now'} />
-                    <PrimaryButton text={'Add to list'} />
+                    <SecondButton text={t('slider.watchNow')} />
+                    <PrimaryButton text={t('slider.addToList')} />
                 </div>
             </div>
         </div>

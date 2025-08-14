@@ -11,8 +11,9 @@ export const api = axios.create({
 });
 
 
-export const getSearch = ( keyword )=> api.get('search/multi',{
+export const getSearch = ( keyword,languages )=> api.get('search/multi',{
     params:{
-        query:keyword
+        query:keyword,
+        language:languages
     }
 }) ;

@@ -1,48 +1,69 @@
 import { useNavigate, useParams } from "react-router"
-import { useDispatch } from "react-redux"
-import { useEffect,useState} from "react"
-import {closeModal} from"../../features/cardDetailModal/cardDetailSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { closeModal } from "../../features/cardDetailModal/cardDetailSlice"
 import { useGetItems } from "../../hooks/getItems"
 import { getImageUrl } from "../../utils/getImageUrl"
-import { fetchAllMovieData,fetchAllShowData } from "../../features/cardDetailModal/movieData"
+import { fetchAllMovieData, fetchAllShowData } from "../../features/cardDetailModal/movieData"
 import { time } from "../../utils/time"
 import { HeartIcon, PlusCircleIcon, ChevronLeftIcon } from "@heroicons/react/16/solid"
 import Card from "../Card/Card"
 import IsLoading from "../../page/IsLoading"
+import { HandleError } from "../HandleError/HandleError"
+
 
 
 
 
 function DetailItems() {
 
-      const [isUiReady, setIsUiReady] = useState(false);
+    const [isUiReady, setIsUiReady] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const navigate = useNavigate()
-    const {media,id} =  useParams();
+    const { media, id } = useParams();
     const dispatch = useDispatch()
+    const { t } = useTranslation();
 
+
+
+    const stateLanguages = useSelector((state) => state.languages)
+
+    const languages = stateLanguages.language.en ? 'en-US' : 'es-ES';
+
+
+
+    
 
 
     const item = useGetItems(['Detail']);
 
 
+    console.log('DetailItems', item)
 
 
 
-    useEffect(()=>{
+
+    useEffect(() => {
         return () => {
             dispatch(closeModal())
         }
-    },[])
+    }, [])
 
 
-    useEffect(()=>{
-        if(media === 'movie'){
-            dispatch(fetchAllMovieData(id))
-        }else if(media === 'show'){
-            dispatch(fetchAllShowData(id))
+    useEffect(() => {
+        if (media === 'movie') {
+            dispatch(fetchAllMovieData(id, languages))
+         console.log('Fetching movie data for ID:', id, 'with language:', languages);
+
+        } else if (media === 'show'|| media === 'tv') {
+            dispatch(fetchAllShowData(id, languages))
+            console.log('Fetching movie data for ID:', id, 'with language:', languages);
         }
-    },[media,id,dispatch])
+    }, [media, id, dispatch, languages])
+
+
 
     const logo = item[0]?.images?.logos?.find((logo) => {
         return logo.iso_639_1 === 'en'
@@ -54,32 +75,21 @@ function DetailItems() {
                 className="w-100  object-contain"
                 src={getImageUrl(logo?.file_path, "original")} alt={item[0].movie?.title} />
         ) : (
-            <h2 className="text-white text-xl font-bold">{item[0]?.movie?.title}</h2>
+            <h2 className="font-poppins text-white text-2xl font-bold">{item[0]?.movie?.title}</h2>
         )
     }
 
     const timeMovie = () => {
         const runTime = time(item[0]?.movie?.runtime)
-        console.log('runtime es', runTime)
+
 
         return runTime
     }
 
-      useEffect(() => {
-    const allSucceeded = item[0].loadingStateCast === 'succeeded' ||
-      item[0].loadingStateImage === 'succeeded' ||
-      item[0].loadingStateItem === 'succeeded' ||
-      item[0].loadingStateSimilar === 'succeeded';
 
 
-    if (allSucceeded) {
-
-      requestAnimationFrame(() => setIsUiReady(true))
-    }
-  }, [item]);
 
 
-  
 
 
 
@@ -102,14 +112,44 @@ function DetailItems() {
 
 
 
+    useEffect(() => {
+
+        const allSucceeded =
+            item[0].loadingStateCast === 'succeeded' &&
+            item[0].loadingStateImage === 'succeeded' &&
+            item[0].loadingStateItem === 'succeeded' &&
+            item[0].loadingStateSimilar === 'succeeded';
 
 
-    return (
-        <>
+        const allFailed =
+            item[0].errorStateCast != null ||
+            item[0].errorStateImage != null ||
+            item[0].errorStateItem != null ||
+            item[0].errorStateSimilar != null;
 
-            <div className=" relative mx-auto w-full h-auto rounded-xl bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,07)_60%,_rgba(03,7,18,1)_90%)] shadow-[0_8px_20px_rgba(255,255,255,0.2)]">
-                {isUiReady && <IsLoading />}
-               
+       
+
+        if (allSucceeded && !allFailed) {
+            requestAnimationFrame(() => setIsUiReady(true))
+            setIsError(false);
+        } else if (allFailed) {
+            setIsUiReady(true);
+            setIsError(true)
+        }
+    }, [item]);
+
+
+    const showContent = () => {
+        if (!isUiReady) {
+          
+            return <IsLoading />;
+            
+        } else if (isError) {
+         
+            return <HandleError />;
+        } else if (isUiReady && !isError) {
+            return(
+            <>
                 <div className="relative w-full h-[600px] rounded-t-xl overflow-hidden">
                     <img
                         className="w-full  object-contain"
@@ -155,7 +195,7 @@ function DetailItems() {
                     </div>
                 </div>
                 <div className="w-full  flex flex-col justify-center items-center">
-                    <p className="font-poppins font-semibold text-2xl text-white mt-8">Similar Movies</p>
+                    <p className="font-poppins font-semibold text-2xl text-white mt-8">{t('sections.similar')}</p>
                     <div className=" grid grid-cols-4 gap-24 py-16 ">
                         {item[0]?.similar?.map((item) => {
 
@@ -167,8 +207,19 @@ function DetailItems() {
                         })}
                     </div>
                 </div>
+            </>
+                )
+            
+        }
+    }
 
 
+
+    return (
+        <>
+
+            <div className=" relative mx-auto w-full min-h-screen h-auto rounded-xl bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,07)_60%,_rgba(03,7,18,1)_90%)] shadow-[0_8px_20px_rgba(255,255,255,0.2)]">
+                {showContent()}
             </div>
 
         </>

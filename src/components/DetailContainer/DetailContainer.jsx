@@ -1,14 +1,16 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation} from "react-router";
 import { getImageUrl } from "../../utils/getImageUrl"
 import { HeartIcon, PlusCircleIcon } from "@heroicons/react/16/solid"
+
 
 function DetailContainer({ item }) {
     const navigate = useNavigate()
     const { media } = useParams();
-  
-
-    const url = (id) => navigate(`/${media}/view/${id}`);
-    const handleClick = () => url(item.id);
+    const url = useLocation()
+    const urlCurrent =  url.pathname.includes('search') ? true : false ; 
+   
+    const urlNew = (id) => urlCurrent ?navigate(`/${item.media_type}/view/${id}`)   : navigate(`/${media}/view/${id}`);
+    const handleClick = () => urlNew(item.id);
 
     return (
         <div

@@ -1,13 +1,13 @@
 import { useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useError } from "../../hooks/fetchState";
+import { useTranslation } from "react-i18next";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { HandleError } from "../HandleError/HandleError";
 import Card from "../Card/Card";
 
 
 
-function Section({ name, items, error }) {
+function Section({ name, items, error,code }) {
     const navigate = useNavigate()
     const { media } = useParams()
 
@@ -15,8 +15,9 @@ function Section({ name, items, error }) {
     const [activeRight, setActiveRight] = useState(false);
 
     const carouselRef = useRef(null);
+  const { t } =  useTranslation();
 
-    const isError = useError(['popular', 'upcoming', 'topTedMovies']);
+
 
 
 
@@ -64,7 +65,7 @@ function Section({ name, items, error }) {
 
     const handleClick = (name) => {
         const category = name.replace(/\s+/g, '-');
-        navigate(`/${media}/category/${category}`)
+        navigate(`/${media}/category/${category}/${code}`)
     }
 
 
@@ -94,7 +95,7 @@ function Section({ name, items, error }) {
                 <p className="font-poppins font-bold text-white text-2xl mr-10 ">{name}</p>
                 <p
                     onClick={() => handleClick(name)}
-                    className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">See more</p>
+                    className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">{t('sections.seeMore')}</p>
                 <ChevronRightIcon className="size-10 text-red-700 cursor-pointer " />
 
             </div>
@@ -114,7 +115,7 @@ function Section({ name, items, error }) {
                         className="flex flex-row items-center px-16  gap-20  h-96 overflow-x-scroll scroll-smooth no-scrollbar pointer-events-none">
 
 
-                        {showCard(isError)}
+                        {showCard()}
 
                     </div>
                 </div>

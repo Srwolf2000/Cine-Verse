@@ -1,56 +1,63 @@
-import { useParams } from "react-router";
+import { useParams,  } from "react-router";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useGetItems } from "../../hooks/getItems";
-import { fetchPopular, fetchUpcoming, fetchTopTedMovies } from "../movies/moviesSlice";
-import {  fetchPopularTv, fetchOnTheAirTv, fetchTopTedTv } from "../show/showSlice"
-import { clearData } from "../../utils/clearData";
-import { toCamelCase } from "../../utils/toCamelCase";
-import Card from "../../components/Card/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetItems } from "../hooks/getItems";
+import { fetchPopular, fetchUpcoming, fetchTopRatedMovies } from "../features/movies/moviesSlice";
+import { fetchPopularTv, fetchOnTheAirTv, fetchTopRatedTv } from "../features/show/showSlice"
+import { clearData } from "../hooks/clearData";
+import Card from "../components/Card/Card";
 
-export default function MoviesPage() {
+export default function CategoryPage() {
   const dispatch = useDispatch();
   const elementRef = useRef(null);
-  const { category } = useParams();
-  const title = category.replace(/[-]/g, " ")
+  const { code } = useParams();
   const [count, setCount] = useState(1);
   const [isIndex, setIsIndex] = useState(null);
-  const word = toCamelCase(title);
 
-  console.log('category is:',category)
-console.log('word', word, 'title', title);
+ const key = parseInt(code)
+  const stateLanguages = useSelector((state) => state.languages.language)
+  const languages = stateLanguages.en ? 'en-US' : 'es-ES';
+
 
   useEffect(() => {
-    clearData([title], dispatch);
+    clearData([key], dispatch);
 
     return () => {
-      clearData([title], dispatch);
+      clearData([key], dispatch);
     }
-  }, [title, dispatch]);
+  }, [key, dispatch, languages]);
 
 
 
   useEffect(() => {
+console.log("Fetching data for key:", key, "and count:", count);
 
-    console.log('word', word);
-    if (word === 'popular') {
-      dispatch(fetchPopular(count));
-    } else if (word === 'upcoming') {
-      dispatch(fetchUpcoming(count));
-    } else if (word === 'topTedMovies') {
-      dispatch(fetchTopTedMovies(count));
-      console.log('word', word, 'count', count);
-    }else if(word === 'populartv'){
-      dispatch(fetchPopularTv(count));
-    }else if(word === 'onTheAirTv'){
-      dispatch(fetchOnTheAirTv(count));
-    }else if (word === 'topTedTv'){
-       dispatch(fetchTopTedTv(count));
+    if (key === 1) {
+      dispatch(fetchPopular({ page: count, language: languages }));
     }
-    console.log('word', word);
-  }, [word, count, dispatch]);
+    else if (key === 2) {
+      dispatch(fetchUpcoming({ page: count, language: languages }));
+    }
+    else if (key === 3) {
+      dispatch(fetchTopRatedMovies({ page: count, language: languages }));
+    }
+    else if (key === 4) {
+      dispatch(fetchPopularTv({ page: count, language: languages }));
+    }
+    else if (key === 5) {
+      dispatch(fetchOnTheAirTv({ page: count, language: languages }));
+    }
+    else if (key === 6) {
+      dispatch(fetchTopRatedTv({ page: count, language: languages }));
+    }else{
+      console.warn("Unknown key:", key);
+    }
 
-  const inputs = useGetItems([title]);
+  }, [key, count, dispatch, languages]);
+
+  const inputs = useGetItems([key]);
+
+  console.log("Inputs:", inputs);
 
 
 
@@ -101,14 +108,14 @@ console.log('word', word, 'title', title);
 
     if (refIndex !== isIndex && refIndex !== null) {
       setIsIndex(refIndex);
-      
+
     }
   }, [inputs, isIndex]);
 
   return (
     <section className="w-full flex flex-col items-center my-36">
       <h2 className="text-white font-poppins font-bold text-3xl">
-        {title}
+        {inputs[0]?.name}
       </h2>
 
       <div className="w-full flex justify-center items-center">

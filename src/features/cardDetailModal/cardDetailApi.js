@@ -8,18 +8,53 @@ export const api = axios.create({
     },
 });
 
-export const getDetailMovie = (id) => api.get(`/movie/${id}`);
+export const getDetailMovie = (id, language) =>  api.get(`/movie/${id}`, {
+        params: {
+            language: language
+        }
 
-export const getDetailShow = (id) => api.get(`/tv/${id}`);
+    });
 
-export const getImagesMovie = (id) => api.get(`/movie/${id}/images`);
 
-export const getImagesShow = (id) => api.get(`/tv/${id}/images`);
 
-export const getCastMovie = (id) => api.get(`/movie/${id}/credits`);
+export const getDetailShow = (id, language) => api.get(`/tv/${id}`, {
+    params: {
+        language: language
+    }
+});
 
-export const getCastShow = (id) => api.get(`/tv/${id}/credits`);
+export const getImagesMovie = (id, language) => api.get(`/movie/${id}/images`, {
+    params: {
+        language: language
+    }
+});
 
-export const getSimilarMovie = (id) => api.get(`/movie/${id}/similar`);
+export const getImagesShow = (id, language) => api.get(`/tv/${id}/images`, {
+    params: {
+        language: language
+    }
+});
 
-export const getSimilarShow = (id) => api.get(`/tv/${id}/similar`);
+export const getCastMovie = (id, language) => api.get(`/movie/${id}/credits`, {
+    params: {
+        language: language
+    }
+});
+
+export const getCastShow = (id, language) => api.get(`/tv/${id}/credits`, {
+    params: {
+        language: language
+    }
+});
+
+export const getSimilarMovie = (id, language) => api.get(`/movie/${id}/similar`, {
+    params: {
+        language: language
+    }
+});
+
+export const getSimilarShow = (id, language) => api.get(`/tv/${id}/similar`, {
+    params: {
+        language: language
+    }
+});

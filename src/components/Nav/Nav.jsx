@@ -1,33 +1,36 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDownIcon, MagnifyingGlassIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import { PrimaryButton } from "../Button/Button";
 import { NavLink } from "react-router";
-import { useState } from "react";
+import Language from "../Language/Language";
 
 
 
 function Nav() {
   const [active, setActive] = useState(false)
+  const { t } = useTranslation();
 
 
   const lists = [
     {
-      name: 'Movie',
+      name: t('navbar.movie'),
       to: "/movie",
     },
-   
+
 
     {
-      name: 'Show',
+      name: t('navbar.show'),
       to: '/show'
     },
-   
+
   ]
 
 
   return (
 
-    <nav className=" fixed left-1/2 transform -translate-x-1/2 h-20 w-[70%] rounded-b-lg px-10 top-0 pt-6 bg-black/50 backdrop-blur-md z-50">
-      <div className=" flex flex-row justify-between w-full ">
+    <nav className=" fixed left-1/2 transform -translate-x-1/2 h-20 w-[70%]  rounded-b-lg  top-0 bg-black/50 backdrop-blur-md z-50">
+      <div className=" flex flex-row h-full justify-between px-6 w-full ">
         <ul className="flex flex-row items-center gap-7  text-white font-poppins font-medium ">
 
           <NavLink to={'/'}>
@@ -41,7 +44,7 @@ function Nav() {
             <NavLink
               key={index}
               to={list.to}
-              className={({ isActive }) => `${isActive ? 'bg-red-700 rounded-lg text-white p-1' : ''} hover:bg-white hover:rounded-lg hover:text-black hover:p-1`}>
+              className={({ isActive }) => `${isActive ? 'bg-red-700 rounded-lg text-white p-1' : ''} font-poppins hover:bg-white hover:rounded-lg hover:text-black hover:p-1`}>
               <li >
                 {list.name}
               </li>
@@ -52,7 +55,7 @@ function Nav() {
         </ul>
 
 
-        <ul className=" flex flex-row items-center gap-7 text-white  ">
+        <ul className=" flex flex-row h-full items-center gap-7 text-white  ">
 
           <NavLink
             to={'search'}
@@ -62,19 +65,21 @@ function Nav() {
             </li>
           </NavLink>
 
-          <NavLink>
-            <li
-              onMouseEnter={() => setActive(true)}
-              onMouseLeave={() => setActive(false)}
-              className=" flex flex-row">
-              ES  {active ? <ChevronUpIcon className="size-6" /> : <ChevronDownIcon className="size-6" />}
+          <div
+            className=" relative flex items-center h-full"
+            onMouseEnter={() => setActive(true)}
+            onMouseLeave={() => setActive(false)}>
+            <li className=" flex flex-row font-poppins">
+              {t('navbar.language')} {active ?<ChevronUpIcon className="size-6" /> : <ChevronDownIcon className="size-6" />}
             </li>
-          </NavLink>
+            {active && <Language />}
+          </div>
+
 
 
 
           <li>
-            <PrimaryButton text={'Login'} />
+            <PrimaryButton text={t('navbar.login')} />
           </li>
 
 
