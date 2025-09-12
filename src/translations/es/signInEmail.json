@@ -1,0 +1,8 @@
+{
+    "signInTitle":"Ingresar",
+    "text":"Por favor Ingresa tu direccion de correo para continuar.",
+    "titleFormMail":"Correo",
+    "placeholder":"Correo",
+    "textError": "El correo es incorrecto o no existe.",
+    "button": "Continuar"
+}

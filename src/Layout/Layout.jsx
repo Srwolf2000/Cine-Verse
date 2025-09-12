@@ -1,7 +1,8 @@
 
 import { Outlet } from "react-router";
 import Nav from "../components/Nav/Nav";
-import DetailItems from "../components/DetailItems/DetailItems";
+import { useSelector } from "react-redux";
+import LogUp from "../components/ModalLogUp/LogUp"
 
 
 
@@ -9,17 +10,19 @@ import DetailItems from "../components/DetailItems/DetailItems";
 
 export function Layout() {
 
+    const userIsNotLogged = useSelector(state => state.authLogin.clickModal)
 
     return (
-        <div  className=" min-h-screen flex flex-col w-full items-center bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,07)_60%,_rgba(03,7,18,1)_90%)]">
+        <div className=" min-h-screen flex flex-col w-full items-center bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,07)_60%,_rgba(03,7,18,1)_90%)]">
             <header className="w-full flex justify-center">
                 <Nav />
             </header>
             <main className=" w-full ">
-         
+
+                {userIsNotLogged && <LogUp />}
                 <Outlet />
-               
-                
+
+
             </main>
             <footer className="bg-black">
 

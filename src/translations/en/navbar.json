@@ -1,7 +1,10 @@
 {
   "movie": "Movies",
   "show": "Shows",
-  "login": "Login",
-  "language": "EN"
-  
+  "language": "EN",
+  "textButton": {
+    "login": "Login",
+    "signUp": "Sign Up Now",
+    "profile": "Profile"
+  }
 }

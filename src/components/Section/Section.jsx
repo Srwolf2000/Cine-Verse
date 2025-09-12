@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 import { HandleError } from "../HandleError/HandleError";
@@ -7,15 +7,16 @@ import Card from "../Card/Card";
 
 
 
-function Section({ name, items, error,code }) {
+function Section({ name, items, error = null, code = null, profile = false }) {
     const navigate = useNavigate()
-    const { media } = useParams()
+    const location = useLocation();
+
 
     const [activeLeft, setActiveLeft] = useState(false);
     const [activeRight, setActiveRight] = useState(false);
 
     const carouselRef = useRef(null);
-  const { t } =  useTranslation();
+    const { t } = useTranslation();
 
 
 
@@ -64,8 +65,14 @@ function Section({ name, items, error,code }) {
 
 
     const handleClick = (name) => {
-        const category = name.replace(/\s+/g, '-');
-        navigate(`/${media}/category/${category}/${code}`)
+        if (location.pathname.includes('profile')) {
+            const type = code === "1" ? "movie" : "tv";
+            navigate(`/profile/${type}/`)
+        } else {
+            const category = name.replace(/\s+/g, '-');
+            navigate(`/category/${category}/${code}`)
+        }
+
     }
 
 
@@ -80,7 +87,7 @@ function Section({ name, items, error,code }) {
             <div key={movie?.id} className="pointer-events-auto ">
                 <Card
                     key={movie?.id}
-                    movie={movie} />
+                    item={movie} />
             </div>
 
         )))
@@ -93,10 +100,15 @@ function Section({ name, items, error,code }) {
             <div className="flex w-full mx-20 mb-10 h-20 items-center">
 
                 <p className="font-poppins font-bold text-white text-2xl mr-10 ">{name}</p>
-                <p
-                    onClick={() => handleClick(name)}
-                    className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">{t('sections.seeMore')}</p>
-                <ChevronRightIcon className="size-10 text-red-700 cursor-pointer " />
+
+                {!profile &&
+                    <button className="flex items-center">
+                        <p onClick={() => handleClick(name)}
+                            className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">{t('sections.seeMore')}</p>
+                        <ChevronRightIcon className="size-10 text-red-700 cursor-pointer " />
+                    </button>
+                }
+
 
             </div>
 

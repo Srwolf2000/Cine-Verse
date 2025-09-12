@@ -30,7 +30,7 @@ export default function CategoryPage() {
 
 
   useEffect(() => {
-console.log("Fetching data for key:", key, "and count:", count);
+
 
     if (key === 1) {
       dispatch(fetchPopular({ page: count, language: languages }));
@@ -57,7 +57,7 @@ console.log("Fetching data for key:", key, "and count:", count);
 
   const inputs = useGetItems([key]);
 
-  console.log("Inputs:", inputs);
+
 
 
 
@@ -70,7 +70,7 @@ console.log("Fetching data for key:", key, "and count:", count);
       const firstEntry = entries[0];
       if (firstEntry.isIntersecting && !hasFetched.current) {
         hasFetched.current = true;
-        console.log("Intersection detected → fetching next page");
+
         setCount((prev) => prev + 1);
       }
     },
@@ -79,7 +79,7 @@ console.log("Fetching data for key:", key, "and count:", count);
 
   useEffect(() => {
     if (!elementRef.current || !inputs[0]?.items?.length) {
-      console.log("Esperando a que existan items para inicializar observer...");
+    
       return;
     }
     console.log("Observer initialized for element:", elementRef.current);
@@ -128,7 +128,7 @@ console.log("Fetching data for key:", key, "and count:", count);
                 key={item.id}
                 ref={isRef ? elementRef : null}
               >
-                <Card movie={item} />
+                <Card item={item} />
               </div>
             );
           })}

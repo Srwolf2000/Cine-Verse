@@ -1,7 +1,11 @@
 {
   "movie": "Peliculas",
   "show": "Series",
-  "login": "Iniciar sesión",
-  "language": "ES"
+  "language": "ES",
+   "textButton": {
+    "login": "Ingresar",
+    "signUp": "Registrarte ahora",
+    "profile": "Perfil"
+  }
   
 }

@@ -31,7 +31,7 @@ function Search() {
 
     const inputs = useGetItems(['Search']);
 
-    console.log('Search inputs', inputs)
+
 
     const searchIsError = value.length > 0 && inputs[0].items.length === 0
 
@@ -41,7 +41,7 @@ function Search() {
         }
         return inputs[0]?.items?.map((item) => {
             return (
-                <Card movie={item}
+                <Card item={item}
                     key={item.id} />
             )
 

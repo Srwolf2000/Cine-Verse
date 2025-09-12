@@ -1,0 +1,12 @@
+{
+    "userProfile": "User Profile",
+    "email": "Email",
+    "birthdate": "Birth Date",
+    "logout": "Logout",
+    "likedMovies": "Movies I Like",
+    "likedShows": "Shows I Like",
+    "savedMovies": "Saved Movies",
+    "savedShows": "Saved Shows",
+    "noContent": "You haven't saved any content to your profile yet",
+    "backToProfile": "Back to Profile"
+}

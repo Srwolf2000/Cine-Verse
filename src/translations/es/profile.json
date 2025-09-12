@@ -1,0 +1,12 @@
+{
+    "userProfile": "Perfil de Usuario",
+    "email": "Correo electrónico",
+    "birthdate": "Fecha de nacimiento",
+    "logout": "Cerrar Sesión",
+    "likedMovies": "Películas que me gustan",
+    "likedShows": "Series que me gustan",
+    "savedMovies": "Películas guardadas",
+    "savedShows": "Series guardadas",
+    "noContent": "Aún no has guardado ningún contenido en tu perfil",
+    "backToProfile": "Volver al perfil"
+}

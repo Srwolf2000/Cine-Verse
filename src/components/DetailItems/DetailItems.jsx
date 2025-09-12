@@ -201,7 +201,7 @@ function DetailItems() {
 
                             return (
                                 <div key={item.id}>
-                                    <Card movie={item} />
+                                    <Card item={item} />
                                 </div>
                             );
                         })}
