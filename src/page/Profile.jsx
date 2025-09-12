@@ -34,28 +34,31 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white my-16 p-8">
-  
-      <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg p-6 mb-8">
-        <h1 className="text-3xl font-bold mb-6">{t('profile.userProfile')}</h1>
+    <div className="min-h-screen  text-white py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8 mb-8 border border-gray-700">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+          {t('profile.userProfile')}
+        </h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="text-gray-400">{t('profile.email')}:</p>
-            <p className="text-xl">{email.value}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
+            <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">{t('profile.email')}:</p>
+            <p className="text-lg sm:text-xl font-medium">{email.value}</p>
           </div>
-          <div>
-            <p className="text-gray-400">{t('profile.birthdate')}:</p>
-            <p className="text-xl">{birthdate}</p>
+          <div className="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
+            <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">{t('profile.birthdate')}:</p>
+            <p className="text-lg sm:text-xl font-medium">{birthdate}</p>
           </div>
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="mt-6 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
-        >
-          {t('profile.logout')}
-        </button>
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white font-medium py-2.5 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          >
+            {t('profile.logout')}
+          </button>
+        </div>
       </div>
 
       <div className="space-y-8">

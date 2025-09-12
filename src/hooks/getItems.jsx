@@ -93,7 +93,7 @@ export function useGetItems(keys = '') {
         }
       } else if (key === 'Detail') {
         return {
-          movie: stateDetail.items.item,
+          data: stateDetail.items.item,
           images: stateDetail.images.image,
           cast: stateDetail.cast.people,
           similar: stateDetail.similar.items,

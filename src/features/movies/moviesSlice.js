@@ -85,8 +85,6 @@ const moviesSlice = createSlice({
             .addCase(fetchPopular.rejected, (state, action) => {
                 state.status.popular = 'failed';
                 state.error.popular = action.error.message;
-                console.log(action.error.message)
-
             })
 
             //  UPCOMING
@@ -101,7 +99,6 @@ const moviesSlice = createSlice({
             .addCase(fetchUpcoming.rejected, (state, action) => {
                 state.status.upcoming = 'failed';
                 state.error.upcoming = action.error.message;
-                console.log(action.error.message)
             })
 
             //  TOP RATED
@@ -116,7 +113,6 @@ const moviesSlice = createSlice({
             .addCase(fetchTopRatedMovies.rejected, (state, action) => {
                 state.status.topRatedMovies = 'failed';
                 state.error.topRatedMovies = action.error.message;
-                console.log(action.error.message)
             });
     }
 });

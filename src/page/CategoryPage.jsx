@@ -82,7 +82,7 @@ export default function CategoryPage() {
     
       return;
     }
-    console.log("Observer initialized for element:", elementRef.current);
+
 
     const observer = new IntersectionObserver(onIntersection, {
       threshold: 0.1,
@@ -118,8 +118,8 @@ export default function CategoryPage() {
         {inputs[0]?.name}
       </h2>
 
-      <div className="w-full flex justify-center items-center">
-        <div className="grid grid-cols-5 m-auto gap-20 py-16">
+      <div className="w-full max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 py-8">
           {inputs[0]?.items?.map((item, index) => {
             const isRef = index === isIndex;
 
@@ -127,6 +127,7 @@ export default function CategoryPage() {
               <div
                 key={item.id}
                 ref={isRef ? elementRef : null}
+                className="flex justify-center"
               >
                 <Card item={item} />
               </div>

@@ -32,20 +32,41 @@ const { t } = useTranslation();
 
 
     return (
-
-        <>
-
-            <div className=" min-h-screen w-full flex  flex-col justify-center  items-center bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,07)_60%,_rgba(03,7,18,1)_90%)]">
-                <div className="flex flex-col justify-center items-center my-8">
-                    <h1 className="text-3xl font-poppins font-bold text-white mb-3 ">{t('signInEmail.signInTitle')}</h1>
-                    <p className="text-lg  font-poppins font-normal text-white">{text}</p>
+        <div className="min-h-screen w-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.7)_60%,_rgba(3,7,18,1)_90%)]">
+            <div className="max-w-md w-full space-y-8 bg-black/50 backdrop-blur-md p-8 sm:p-10 rounded-2xl shadow-2xl border border-gray-700/50">
+                {/* Logo or Brand */}
+                <div className="flex justify-center mb-8">
+                    <h2 className="text-3xl sm:text-4xl font-bold font-poppins">
+                        Cine<span className="text-red-600">Verse</span>
+                    </h2>
                 </div>
 
-                {component}
+                {/* Title and Description */}
+                <div className="text-center space-y-4">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-poppins">
+                        {t('signInEmail.signInTitle')}
+                    </h1>
+                    <p className="text-gray-300 text-base sm:text-lg max-w-sm mx-auto font-poppins">
+                        {text}
+                    </p>
+                </div>
 
+                {/* Form Component */}
+                <div className="mt-8">
+                    {component}
+                </div>
+
+                {/* Optional: Additional Links */}
+                <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-400 font-poppins">
+                        {t('signInEmail.noAccount')}
+                        <a href="/signup" className="ml-2 font-medium text-red-600 hover:text-red-500 transition-colors duration-200">
+                            {t('signInEmail.signUp')}
+                        </a>
+                    </p>
+                </div>
             </div>
-
-        </>
+        </div>
     );
 }
 

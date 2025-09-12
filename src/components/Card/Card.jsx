@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useSelector } from 'react-redux'
 import { getImageUrl } from "../../utils/getImageUrl"
-import { HeartIcon, BookmarkIcon } from "@heroicons/react/16/solid"
-import DetailContainer from "../DetailContainer/DetailContainer"
+import { HeartIcon, BookmarkIcon } from "@heroicons/react/24/solid";
+
+
 
 
 function Card({ item }) {
 
-    const [loadingImage, setLoadingImage] = useState(true)
-    const [onMouse, setOnMouse] = useState(false)
+    const navigate = useNavigate()
+    const [isErrorImage, setIsErrorImage] = useState(false)
     const [likeItem, setLikeItem] = useState(false)
     const [saveItem, setSaveItem] = useState(false)
 
@@ -19,9 +21,28 @@ function Card({ item }) {
     const showSaved = useSelector(state => state.authLogin.savedShows);
 
 
+
+    const urlMovie = item.title ? true : false;
+    const urlShow = item.name ? true : false;
+
+    console.log(urlMovie, urlShow)
+
+    const handleClickItem = () => {
+        if (!isErrorImage) {
+            urlMovie || urlShow
+                ? navigate(`/${urlMovie ? 'movie' : 'show'}/view/${item.id}`)
+                : navigate(`/${item.media_type}/view/${item.id}`);
+        }
+
+    }
+
+
+
+
+
     useEffect(() => {
-        const isLikedItem = moviesLiked.find(movie => movie.id === item.id) || showLiked.find(movie => movie.id === item.id)
-        const isSavedItem = moviesSaved.find(movie => movie.id === item.id) || showSaved.find(movie => movie.id === item.id)
+        const isLikedItem = moviesLiked.find(movie => movie.id === item.id) || showLiked.find(show => show.id === item.id)
+        const isSavedItem = moviesSaved.find(movie => movie.id === item.id) || showSaved.find(show => show.id === item.id)
         if (isLikedItem) {
             setLikeItem(true)
         } else {
@@ -41,20 +62,20 @@ function Card({ item }) {
         if (likeItem && saveItem) {
             return (
                 <div className="absolute top-2 right-2 h-10 flex flex-row justify-center ">
-                    <HeartIcon className="size-6 text-white mr-3 cursor-pointer hover:size-8" />
+                    <HeartIcon className="size-6 text-red-500 mr-3 cursor-pointer hover:size-8" />
                     <BookmarkIcon className=" size-6 text-white cursor-pointer hover:size-8" />
                 </div>
             )
         } else if (saveItem) {
             return (
                 <div className="absolute top-2 right-2 h-10 flex flex-row justify-center ">
-                    <BookmarkIcon className=" size-6 text-white cursor-pointer hover:size-8" />
+                    <BookmarkIcon className=" size-6 text-red-500 cursor-pointer hover:size-8" />
                 </div>
             )
         } else if (likeItem) {
             return (
                 <div className="absolute top-2 right-2 h-10 flex flex-row justify-center ">
-                    <HeartIcon className="size-6 text-white mr-3 cursor-pointer hover:size-8" />
+                    <HeartIcon className="size-6 text-red-500 mr-3 cursor-pointer hover:size-8" />
                 </div>
             )
 
@@ -63,28 +84,28 @@ function Card({ item }) {
         return null
     }
 
-    const handleImageError = () => {
-        if (loadingImage) {
-            setOnMouse((prev) => !prev)
-        }
-    }
-
 
     return (
         <article
-            onMouseEnter={handleImageError}
-            onMouseLeave={handleImageError}
-            className="relative w-[176px] h-[256px] shadow-[0_8px_20px_rgba(255,255,255,0.2)] rounded-2xl  z-10">
-            <div className="w-44 h-64 rounded-2xl overflow-hidden aspect-video">
+            onClick={handleClickItem}
+            className="relative w-[176px] h-[256px] transform cursor-pointer"
+        >
+            <div className="w-full h-full rounded-2xl overflow-hidden shadow-lg relative">
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent 
+                    transition-opacity duration-300 "></div>
+
+                {/* Image */}
                 <img
-                    className="w-100 object-contain"
-                    src={getImageUrl(item?.poster_path, 'original')} alt={item?.title}
+                    className="w-full h-full object-cover rounded-2xl"
+                    src={getImageUrl(item?.poster_path, 'original')}
+                    alt={item?.title || item?.name}
                     onError={(e) => {
-                        e.target.src = " https://placehold.co/176x256?text=Sorry,%0Awe+work+to+improve&font=roboto&size=18";
-                        setLoadingImage(false)
-                    }} />
+                        e.target.src = "https://placehold.co/176x256?text=Sorry,%0Awe+work+to+improve&font=roboto&size=18"
+                        setIsErrorImage(true)
+                    }}
+                />
             </div>
-            {onMouse === true && <DetailContainer item={item} />}
             {showIcons()}
         </article>
     )

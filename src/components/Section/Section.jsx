@@ -95,51 +95,93 @@ function Section({ name, items, error = null, code = null, profile = false }) {
 
 
     return (
-        <section className="relative flex flex-col justify-center overflow-x-hidden w-full h-[30rem]">
-
-            <div className="flex w-full mx-20 mb-10 h-20 items-center">
-
-                <p className="font-poppins font-bold text-white text-2xl mr-10 ">{name}</p>
-
-                {!profile &&
-                    <button className="flex items-center">
-                        <p onClick={() => handleClick(name)}
-                            className="font-poppins font-bold text-red-700 text-2xl cursor-pointer hover:text-3xl">{t('sections.seeMore')}</p>
-                        <ChevronRightIcon className="size-10 text-red-700 cursor-pointer " />
-                    </button>
-                }
-
-
+        <section className="relative py-8 md:py-12 w-full min-h-[30rem] overflow-hidden">
+            <div className="max-w-[90%] mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white font-poppins">{name}</h2>
+                    
+                    {!profile && (
+                        <button 
+                            onClick={() => handleClick(name)}
+                            className="group flex items-center space-x-2 font-poppins"
+                        >
+                            <span className="text-red-600 font-bold text-lg md:text-xl transition-all duration-300 group-hover:text-red-500">
+                                {t('sections.seeMore')}
+                            </span>
+                            <ChevronRightIcon className="w-6 h-6 text-red-600 group-hover:text-red-500 transition-transform duration-300 group-hover:translate-x-1" />
+                        </button>
+                    )}
+                </div>
             </div>
 
+            <div className="relative max-w-[95%] mx-auto">
+                <button
+                    onClick={scrollLeft}
+                    onMouseEnter={() => setActiveLeft(true)}
+                    onMouseLeave={() => setActiveLeft(false)}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-40 transition-all duration-300 group"
+                >
+                    <div className={`
+                        flex items-center justify-center w-12 h-48 md:w-14 md:h-52
+                        bg-black/30 backdrop-blur-sm rounded-r-xl
+                        transition-all duration-300
+                        ${activeLeft ? 'bg-black/50' : 'opacity-0 group-hover:opacity-100'}
+                    `}>
+                        <ChevronLeftIcon className={`
+                            w-8 h-8 md:w-10 md:h-10 text-white/90
+                            transition-all duration-300
+                            ${activeLeft ? 'scale-125' : 'scale-100'}
+                        `} />
+                    </div>
+                </button>
 
-            <button
-                onMouseEnter={() => setActiveLeft(true)}
-                onMouseLeave={() => setActiveLeft(false)}
-                className="absolute top-44 left-8 z-40 flex items-center justify-center w-14 h-52 bg-black/50 rounded-2xl"
-                onClick={scrollLeft}>
-                <ChevronLeftIcon className={`${activeLeft ? 'hover:size-20' : 'size-10'} text-white `} />
-            </button>
-            <div className="relative w-full h-96 flex justify-center items-center overflow-visible">
-                <div className="relative w-[80%]  h-96 overflow-hidden pointer-events-auto">
+                {/* Carousel */}
+                <div className="relative overflow-hidden">
                     <div
                         ref={carouselRef}
-                        className="flex flex-row items-center px-16  gap-20  h-96 overflow-x-scroll scroll-smooth no-scrollbar pointer-events-none">
-
-
+                        className="flex gap-6 md:gap-8 items-center px-4 py-4
+                            overflow-x-auto snap-x snap-mandatory
+                            scroll-smooth
+                            [&::-webkit-scrollbar]:h-2 
+                            [&::-webkit-scrollbar-track]:rounded-full
+                            [&::-webkit-scrollbar-track]:bg-gray-800/40
+                            [&::-webkit-scrollbar-thumb]:rounded-full
+                            [&::-webkit-scrollbar-thumb]:bg-gray-500/50
+                            hover:[&::-webkit-scrollbar-thumb]:bg-gray-400/60
+                            [&::-webkit-scrollbar-thumb]:transition-colors
+                            firefox:scrollbar-thin
+                            firefox:scrollbar-track-rounded-full
+                            firefox:scrollbar-track-[#1f2937]/40
+                            firefox:scrollbar-thumb-rounded-full
+                            firefox:scrollbar-thumb-gray-500/50
+                            firefox:hover:scrollbar-thumb-gray-400/60"
+                    >
                         {showCard()}
-
                     </div>
-                </div>
 
+                    <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent pointer-events-none"></div>
+                </div>
+                <button
+                    onClick={scrollRight}
+                    onMouseEnter={() => setActiveRight(true)}
+                    onMouseLeave={() => setActiveRight(false)}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-40 transition-all duration-300 group"
+                >
+                    <div className={`
+                        flex items-center justify-center w-12 h-48 md:w-14 md:h-52
+                        bg-black/30 backdrop-blur-sm rounded-l-xl
+                        transition-all duration-300
+                        ${activeRight ? 'bg-black/50' : 'opacity-0 group-hover:opacity-100'}
+                    `}>
+                        <ChevronRightIcon className={`
+                            w-8 h-8 md:w-10 md:h-10 text-white/90
+                            transition-all duration-300
+                            ${activeRight ? 'scale-125' : 'scale-100'}
+                        `} />
+                    </div>
+                </button>
             </div>
-            <button
-                onMouseEnter={() => setActiveRight(true)}
-                onMouseLeave={() => setActiveRight(false)}
-                className="absolute top-44 right-8 z-40 flex items-center justify-center w-14 h-52 bg-black/50 rounded-2xl"
-                onClick={scrollRight}>
-                <ChevronRightIcon className={`${activeRight ? 'hover:size-20' : 'size-10'} text-white `} />
-            </button>
         </section>
     )
 }

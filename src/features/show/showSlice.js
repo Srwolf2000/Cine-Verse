@@ -5,7 +5,6 @@ import { getPopularTv, getOnTheAirTv, getTopRatedTv } from './showApi'
 export const fetchPopularTv = createAsyncThunk('show/fetchPopularTv',
     async ({page,language}) => {
         const response = await getPopularTv(page,language);
-        console.log('Popular Tv', response,'language',language) 
         return response.data.results;
 
 
@@ -15,7 +14,6 @@ export const fetchPopularTv = createAsyncThunk('show/fetchPopularTv',
 export const fetchOnTheAirTv = createAsyncThunk('show/fetchOnTheAirTv',
     async ({page,language}) => {
         const response = await getOnTheAirTv(page,language);
-        console.log('On The Air tv', response)
         return response.data.results;
     }
 );
@@ -23,7 +21,6 @@ export const fetchOnTheAirTv = createAsyncThunk('show/fetchOnTheAirTv',
 export const fetchTopRatedTv = createAsyncThunk('show/fetchTopRatedTv',
     async ({page,language}) => {
         const response = await getTopRatedTv(page,language);
-        console.log('Top Ted Tv', response)
         return response.data.results;
     }
 );
@@ -101,7 +98,6 @@ const showSlice = createSlice({
                 state.status.onTheAirTv = 'succeeded';
                 state.onTheAirTv.items = [...state.onTheAirTv.items, ...action.payload];
                 state.onTheAirTv.page = action.meta.arg;
-                console.log('action', action)
             })
             .addCase(fetchOnTheAirTv.rejected, (state, action) => {
                 state.status.onTheAirTv = 'failed';
@@ -117,7 +113,6 @@ const showSlice = createSlice({
                 state.status.topRatedTv = 'succeeded';
                 state.topRatedTv.items = [...state.topRatedTv.items, ...action.payload];
                 state.topRatedTv.page = action.meta.arg;
-                console.log('action', action)
             })
             .addCase(fetchTopRatedTv.rejected, (state, action) => {
                 state.status.topRatedTv = 'failed';

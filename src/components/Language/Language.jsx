@@ -1,16 +1,14 @@
 import { useDispatch } from "react-redux";
 import i18n from "../../i18n";
 import { languageIsEn , languageIsEs } from "../../features/languages/languagesSlice";
-import { useGetItems } from "../../hooks/getItems";
-import { useEffect } from "react";
+
+
 
 function Language() {
 
     const dispatch = useDispatch();
-    const languages = useGetItems(['Languages']);
-    useEffect(() => {
-        console.log(languages)
-    },[languages])
+
+
 
     
 const handleEn = ()=>{
@@ -24,19 +22,30 @@ const handleEs = ()=>{
 }
 
     return (
-        <>
-            <div className="absolute top-20 -left-6 w-24 pb-4 rounded-b-lg bg-black/50 backdrop-blur-md z-50">
-                <ul className="flex flex-col justify-center items-center">
-                    <li
-                        onClick={() =>handleEn()} 
-                        className=" font-poppins cursor-pointer hover:text-red-700 hover:font-bold ">EN - USA</li>
-                    <li
-                        onClick={() => handleEs()}
-                        className=" font-poppins cursor-pointer hover:text-red-700 hover:font-bold ">ES - ESP</li>
-                </ul>
-            </div>
-
-        </>
+        <div className="w-full">
+            <ul className="flex flex-col w-full">
+                <li
+                    onClick={handleEn}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-200 
+                        hover:bg-blue-600/10 hover:text-blue-400 cursor-pointer transition-colors duration-200 rounded-md"
+                >
+                    <span className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
+                        🇺🇸
+                    </span>
+                    <span>English</span>
+                </li>
+                <li
+                    onClick={handleEs}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-200 
+                        hover:bg-blue-600/10 hover:text-blue-400 cursor-pointer transition-colors duration-200 rounded-md"
+                >
+                    <span className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
+                        🇪🇸
+                    </span>
+                    <span>Español</span>
+                </li>
+            </ul>
+        </div>
     )
 
 }
