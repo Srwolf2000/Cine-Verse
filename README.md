@@ -1,61 +1,102 @@
-# 🎬 CineVerse
+CineVerse es una aplicación web responsiva inspirada en plataformas de streaming, que permite a los usuarios explorar películas y series populares, en tendencia y próximos estrenos.
 
-CineVerse is a movie and TV show browsing platform built with **React**, **Redux Toolkit**, **Tailwind CSS**, and the **TMDb API**.  
-It allows users to explore popular, upcoming, and trending media content through a clean and dynamic interface.
+🔗 Demo en vivo: cine-verse-app-lovat.vercel.app
 
-> 🚧 **Work in Progress**: This project is still under development. New features, polish, and improvements are on the way.
+💻 Repositorio GitHub: github.com/Srwolf2000/Cine-Verse
+
+🚀 Características principales
+
+🔑 Autenticación de usuarios (login con validación de formularios).
+
+🎥 Exploración de contenido: películas populares, trending, próximos estrenos y series.
+
+🌙 Modo oscuro / claro.
+
+🌍 Cambio de idioma (ES / EN).
+
+📱 Diseño 100% responsivo para desktop, tablet y móvil.
+
+📊 Gestión global del estado con Redux Toolkit.
+
+🖼️ Vista de detalles de películas con modal interactivo y recomendaciones similares.
+
+🛠️ Tecnologías utilizadas
+
+Frontend: React, Redux Toolkit, React Router
+
+Estilos: Tailwind CSS
+
+API: The Movie Database (TMDb)
+
+HTTP Client: Axios
+
+Deploy: Vercel
+---
+
+📸 Capturas de pantalla
+Login	Home	Detalle de película
+
+![Login](/public/screenshots/login.png)
+![Home](/public/screenshots/home.png)
+![Home-SECTION](/public/screenshots/home.seccion.png)
+![Detalle](/public/screenshots/detail.png)
+![PROFILE](/public/screenshots/profile.png)
 
 ---
 
-## 🚀 Features (Planned & In Progress)
+⚙️ Instalación y uso
 
-- Carousel section with full functionality (✅ done)
-- Responsive layout (🔄 in progress)
-- Browse popular, upcoming, and trending movies & TV shows
-- Movie detail pages with full metadata
-- API data consumption using Axios
-- Dark mode toggle
-- Language switcher (i18n)
-- User authentication (future feature)
+Clonar el repositorio:
 
----
+git clone https://github.com/Srwolf2000/Cine-Verse.git
 
-## 🛠️ Technologies Used
 
-- React
-- Redux Toolkit
-- Tailwind CSS
-- Axios
-- TMDb API
-- Vite
-- JavaScript (ES6+)
-- Git & GitHub
+Entrar en la carpeta del proyecto:
 
----
+cd Cine-Verse
 
-## 📦 Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/Srwolf2000/cineverse.git
+Instalar dependencias:
 
-# Navigate into the folder
-cd cineverse
-
-# Install dependencies
 npm install
 
-# Start the development server
+Ejecutar el proyecto en desarrollo:
+
 npm run dev
-```
 
----
 
-## 📸 Screenshots
+Abrir en el navegador:
+http://localhost:5173
 
-_Screenshots and demo GIFs coming soon._
+📂 Estructura del proyecto
+Cine-Verse/
+ ├── src/
+ │   ├── components/     # Componentes reutilizables (cards, modals, sliders)
+ │   ├── features/       # Redux slices
+ │   ├── pages/          # Páginas principales (Home, Login, Movies, Shows)
+ │   ├── router/         # Configuración de rutas
+ │   └── App.jsx
+ ├── public/             # Recursos estáticos
+ ├── package.json
+ └── README.md
 
----
+✨ Aprendizajes
+
+Este proyecto me permitió:
+
+Implementar un flujo completo de autenticación de usuarios.
+
+Optimizar la gestión del estado con Redux Toolkit.
+
+Aplicar buenas prácticas en arquitectura de proyectos React.
+
+Profundizar en el consumo de APIs REST y manejo de errores.
+
+Mejorar la experiencia de usuario con internacionalización y modo oscuro/claro.
+
+📜 Licencia
+
+Este proyecto está bajo la licencia MIT.
 
 ## 👤 Author
 
@@ -65,6 +106,4 @@ Medellín, Colombia
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License.
