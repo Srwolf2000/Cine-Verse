@@ -1,8 +1,10 @@
 {
-    "signInTitle":"SignIn",
-    "text":"Please enter your email address to continue.",
-    "titleFormMail":"Email",
-    "placeholder":"Email",
+    "signInTitle": "SignIn",
+    "text": "Please enter your email address to continue.",
+    "titleFormMail": "Email",
+    "placeholder": "Email",
     "textError": "The email is incorrect or does not exist.",
-    "button": "Continue"
+    "button": "Continue",
+    "noAccount": "Don’t have an account?",
+    "signUp": "Sign up here"
 }
